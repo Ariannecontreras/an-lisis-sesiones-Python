@@ -1,0 +1,57 @@
+# main.py
+# Proyecto: Evaluación del Nivel de Compromiso de Sesiones
+
+def clasificar_compromiso(duracion: int, clics: int) -> str:
+    """
+    Clasifica el nivel de compromiso de una sesión según su duración y clics.
+    
+    Reglas:
+    - Alto: Duración > 180 s Y Clics > 8
+    - Bajo: Duración < 60 s O Clics < 3
+    - Medio: Cualquier otro caso
+    """
+    if duracion > 180 and clics > 8:
+        return "Alto"
+    elif duracion < 60 or clics < 3:
+        return "Bajo"
+    else:
+        return "Medio"
+
+
+def generar_informe_compromiso(sesiones: list) -> None:
+    """
+    Procesa la matriz de sesiones e imprime el informe de clasificación.
+    """
+    print("=" * 45)
+    print("      INFORME DE COMPROMISO DE SESIONES      ")
+    print("=" * 45)
+    print(f"{'ID Cliente':<15} | {'Nivel de Compromiso'}")
+    print("-" * 45)
+
+    for fila in sesiones:
+        id_cliente = fila[0]
+        duracion = fila[1]
+        clics = fila[2]
+
+        nivel = clasificar_compromiso(duracion, clics)
+        print(f"{id_cliente:<15} | {nivel}")
+
+    print("=" * 45)
+
+
+def main():
+    # Matriz con datos iniciales de 5 sesiones:
+    # [ID del Cliente, Duración de la sesión (s), Número de clics]
+    sesiones_clientes = [
+        ["CLI-001", 200, 10],  # Alto ( > 180 s y > 8 clics )
+        ["CLI-002", 45, 12],   # Bajo ( < 60 s )
+        ["CLI-003", 120, 5],   # Medio (Caso general)
+        ["CLI-004", 300, 2],   # Bajo ( < 3 clics )
+        ["CLI-005", 190, 9]    # Alto ( > 180 s y > 8 clics )
+    ]
+
+    generar_informe_compromiso(sesiones_clientes)
+
+
+if _name_ == "_main_":
+    main()
